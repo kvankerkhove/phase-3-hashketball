@@ -1,4 +1,5 @@
 # Write your code below game_hash
+
 def game_hash
   {
     home: {
@@ -126,4 +127,53 @@ def game_hash
   }
 end
 
-# Write code here
+def all_players
+  game_hash[:home][:players].concat(game_hash[:away][:players])
+end
+
+
+
+def num_points_scored player_name
+  player = all_players.find{|player| player[:player_name] == player_name}
+  player[:points]
+end
+
+def shoe_size player_name
+  player = all_players.find{|player| player[:player_name] == player_name}
+  player[:shoe]
+end
+
+def find_team team_name
+  team_info = game_hash.find do |location, team_data|
+    team_data[:team_name] == team_name
+  end
+  team_info[1]
+end
+
+def team_colors team_name
+  find_team(team_name)[:colors]
+end
+
+def team_names
+  game_hash.map{|team| team[1][:team_name]}
+end
+
+def player_numbers team_name
+  find_team(team_name)[:players].map{|player| player[:number]}
+end
+
+def player_stats player_name
+  all_players.find{|player| player[:player_name] == player_name}
+end
+
+def player_with_largest_shoe_size
+  player_with_max_shoe_size = all_players.max{|player1, player2| player1[:shoe] <=> player2[:shoe]}
+end
+
+def big_shoe_rebounds
+  player_with_largest_shoe_size[:rebounds]
+end
+
+
+
+
